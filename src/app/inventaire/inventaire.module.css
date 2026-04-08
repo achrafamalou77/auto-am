@@ -1,0 +1,240 @@
+.page {
+  background: var(--color-bg);
+  min-height: 100vh;
+}
+
+.hero {
+  background: var(--color-dark);
+  padding: 100px 20px 60px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.hero h1 {
+  color: #fff;
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: var(--color-gray);
+  font-size: 1.05rem;
+}
+
+.body {
+  padding: 32px 0 80px;
+}
+
+/* Filter Bar */
+.filterBar {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.filterRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.filterRow + .filterRow {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
+}
+
+.filterSelect,
+.filterInput {
+  flex: 1;
+  min-width: 160px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--color-dark);
+  background: var(--color-bg);
+  transition: border-color 0.2s ease;
+}
+
+.filterSelect:focus,
+.filterInput:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.moreFiltersBtn {
+  padding: 12px 20px;
+  border: 1px solid var(--color-primary);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.moreFiltersBtn:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.clearBtn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.clearBtn:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.conditionTabs {
+  display: flex;
+  gap: 4px;
+}
+
+.condTab {
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.condTab:hover {
+  color: var(--color-dark);
+}
+
+.condTabActive {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.toolbarRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.searchBox {
+  position: relative;
+}
+
+.keywordInput {
+  padding: 10px 36px 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  width: 200px;
+  background: #fff;
+}
+
+.keywordInput:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text);
+  pointer-events: none;
+}
+
+.sortWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.sortSelect {
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.resultCount {
+  font-size: 1.1rem;
+  color: var(--color-dark);
+  margin-bottom: 24px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.skeleton {
+  height: 380px;
+  background: var(--color-surface);
+  border-radius: 16px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.empty {
+  text-align: center;
+  padding: 60px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--color-border);
+}
+
+.empty h3 {
+  font-size: 1.5rem;
+  color: var(--color-dark);
+}
+
+.empty p {
+  color: var(--color-text);
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2rem; }
+  .toolbarRight { flex-wrap: wrap; }
+  .keywordInput { width: 140px; }
+  .filterSelect, .filterInput { min-width: 100%; }
+}

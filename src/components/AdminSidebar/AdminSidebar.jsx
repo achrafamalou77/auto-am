@@ -1,0 +1,100 @@
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { logoutAdmin } from '@/utils/supabaseClient';
+import styles from './AdminSidebar.module.css';
+
+export default function AdminSidebar() {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await logoutAdmin();
+    router.push('/admin/login');
+  };
+
+  const links = [
+    {
+      name: 'Dashboard',
+      href: '/admin',
+      icon: (
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Inventaire',
+      href: '/admin/inventory',
+      icon: (
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Ajouter un véhicule',
+      href: '/admin/add-vehicle',
+      icon: (
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Commandes',
+      href: '/admin/commandes',
+      icon: (
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <aside className={styles.sidebar}>
+      <div className={styles.brand}>
+        <Link href="/">
+          <Image
+            src="/images/logo.webp"
+            alt="2s oto Logo"
+            width={90}
+            height={36}
+            priority
+            className={styles.logoImage}
+          />
+        </Link>
+        <div className={styles.badge}>Admin</div>
+      </div>
+
+      <nav className={styles.nav}>
+        {links.map((link) => {
+          const isActive = pathname === link.href;
+          return (
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`${styles.navLink} ${isActive ? styles.active : ''}`}
+            >
+              <span className={styles.icon}>{link.icon}</span>
+              {link.name}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className={styles.bottom}>
+        <button onClick={handleLogout} className={styles.exitLink} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem', padding: '16px' }}>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          Quitter l&apos;admin
+        </button>
+      </div>
+    </aside>
+  );
+}

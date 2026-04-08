@@ -1,0 +1,32 @@
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-surface);
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 32px;
+  border-left: 4px solid var(--color-whatsapp);
+}
+
+.icon {
+  color: var(--color-whatsapp);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-dark);
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
