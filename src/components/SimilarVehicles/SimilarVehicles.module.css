@@ -15,8 +15,8 @@
 .badge {
   display: inline-block;
   padding: 5px 16px;
-  background: rgba(255, 70, 5, 0.08);
-  border: 1px solid rgba(255, 70, 5, 0.15);
+  background: rgba(230, 0, 0, 0.08);
+  border: 1px solid rgba(230, 0, 0, 0.15);
   border-radius: var(--radius-full);
   color: var(--color-primary);
   font-size: 0.78rem;

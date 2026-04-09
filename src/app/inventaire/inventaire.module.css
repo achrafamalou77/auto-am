@@ -232,9 +232,29 @@
   margin-top: 8px;
 }
 
+/* Sections */
+.inventorySection {
+  margin-bottom: 40px;
+}
+
+.sectionHeading {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-dark);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.sectionSubtitle {
+  font-size: 1.05rem;
+  color: var(--color-text);
+  margin-bottom: 32px;
+}
+
 @media (max-width: 768px) {
   .hero h1 { font-size: 2rem; }
   .toolbarRight { flex-wrap: wrap; }
   .keywordInput { width: 140px; }
   .filterSelect, .filterInput { min-width: 100%; }
+  .sectionHeading { font-size: 1.5rem; }
 }

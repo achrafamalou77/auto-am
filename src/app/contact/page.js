@@ -61,24 +61,16 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div style={{ 
-              width: '100%', 
-              height: '200px', 
-              background: '#333', 
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--color-gray)'
-            }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-                Google Maps Placeholder
-              </span>
-            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.9758233273933!2d3.36106017572543!3d36.72314187226924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e5d3e77e62b67%3A0x890df236e8806741!2s2s%20oto!5e0!3m2!1sen!2sdz!4v1775731596873!5m2!1sen!2sdz"
+              width="100%"
+              height="250"
+              style={{ border: 0, borderRadius: '12px' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Localisation de 2s oto"
+            />
           </div>
 
           {/* Right Column - Form */}

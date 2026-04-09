@@ -100,7 +100,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #25D366;
+  background: var(--color-primary);
   color: #fff;
   padding: 10px 22px;
   border-radius: 10px;
@@ -108,7 +108,7 @@
   font-weight: 700;
   text-decoration: none;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 12px rgba(37, 211, 102, 0.2);
+  box-shadow: 0 2px 12px rgba(230, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
 }
@@ -135,9 +135,9 @@
 }
 
 .waBtn:hover {
-  background: #1ebe57;
+  background: var(--color-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
+  box-shadow: 0 6px 24px rgba(230, 0, 0, 0.4);
 }
 
 .waBtn:active {
@@ -152,9 +152,9 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #25D366;
+  background: var(--color-primary);
   color: #fff;
-  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.35);
+  box-shadow: 0 4px 24px rgba(230, 0, 0, 0.35);
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: fadeSlide 0.35s ease;
@@ -167,7 +167,7 @@
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  border: 2px solid rgba(37, 211, 102, 0.3);
+  border: 2px solid rgba(230, 0, 0, 0.3);
   animation: pulseRing 2s ease-out infinite;
 }
 
@@ -184,7 +184,7 @@
 
 .miniWa:hover {
   transform: scale(1.1);
-  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.5);
+  box-shadow: 0 8px 32px rgba(230, 0, 0, 0.5);
 }
 
 /* ---- Responsive ---- */

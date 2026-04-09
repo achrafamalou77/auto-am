@@ -60,7 +60,30 @@ export default async function ListingPage({ params }) {
           <div className={styles.mainCol}>
 
             {/* Gallery at the top of left column */}
-            <Gallery images={vehicle.images} title={title} />
+            <div style={{ position: 'relative' }}>
+              <Gallery images={vehicle.images} title={title} />
+              {vehicle.is_sold && (
+                <div style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%) rotate(-15deg)',
+                  background: 'rgba(0, 0, 0, 0.85)',
+                  border: '6px solid white',
+                  color: 'white',
+                  fontWeight: 900,
+                  padding: '16px 40px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '4px',
+                  zIndex: 20,
+                  fontSize: '2.5rem',
+                  boxShadow: '0 6px 30px rgba(0,0,0,0.6)',
+                  pointerEvents: 'none'
+                }}>
+                  VENDU
+                </div>
+              )}
+            </div>
 
             {/* Description */}
             <section className={styles.contentSection}>
@@ -111,7 +134,7 @@ export default async function ListingPage({ params }) {
               <h2 className={styles.sectionTitle}>Localisation</h2>
               <div className={styles.mapWrap}>
                 <iframe
-                  src="https://maps.google.com/maps?q=Ouled+Hedadj+35000&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.9758233273933!2d3.36106017572543!3d36.72314187226924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e5d3e77e62b67%3A0x890df236e8806741!2s2s%20oto!5e0!3m2!1sen!2sdz!4v1775731596873!5m2!1sen!2sdz"
                   width="100%"
                   height="300"
                   style={{ border: 0, borderRadius: '12px' }}

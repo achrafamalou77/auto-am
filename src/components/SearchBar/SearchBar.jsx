@@ -1,18 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import { makes, modelsByMake, priceRanges } from '@/utils/mockData';
+import { useRouter } from 'next/navigation';
+import { makes, modelsByMake } from '@/utils/mockData';
 import styles from './SearchBar.module.css';
 
 export default function SearchBar() {
   const [selectedMake, setSelectedMake] = useState('');
   const [selectedModel, setSelectedModel] = useState('');
-  const [selectedPrice, setSelectedPrice] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+  const router = useRouter();
 
   const models = selectedMake ? modelsByMake[selectedMake] || [] : [];
+  const yearOptions = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
 
   const handleSearch = () => {
-    console.log('Search:', { make: selectedMake, model: selectedModel, maxPrice: selectedPrice });
+    const params = new URLSearchParams();
+    if (selectedMake && selectedMake !== 'Toutes les Marques') params.append('make', selectedMake);
+    if (selectedModel && selectedModel !== 'Tous les Modèles') params.append('model', selectedModel);
+    if (selectedYear) params.append('year', selectedYear);
+    router.push(`/inventaire?${params.toString()}`);
   };
 
   return (
@@ -59,15 +66,15 @@ export default function SearchBar() {
 
       <div className={styles.field}>
         <select
-          value={selectedPrice}
-          onChange={(e) => setSelectedPrice(e.target.value)}
+          value={selectedYear}
+          onChange={(e) => setSelectedYear(e.target.value)}
           className={styles.select}
-          id="search-price"
+          id="search-year"
         >
-          <option value="">Prix Max</option>
-          {priceRanges.map((range) => (
-            <option key={range.value} value={range.value}>
-              {range.label}
+          <option value="">Année Min</option>
+          {yearOptions.map((year) => (
+            <option key={year} value={year}>
+              {year} ou plus récent
             </option>
           ))}
         </select>

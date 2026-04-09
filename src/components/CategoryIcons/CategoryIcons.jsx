@@ -5,62 +5,32 @@ import styles from './CategoryIcons.module.css';
 
 const categories = [
   {
-    name: 'Berline',
-    href: '/inventaire?type=Berline',
+    name: 'Neuf',
+    href: '/inventaire?condition=Neuf',
     icon: (
-      <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M8 40h48M12 40l4-12h32l4 12M16 28l2-8h28l2 8" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="18" cy="44" r="4"/>
-        <circle cx="46" cy="44" r="4"/>
-        <path d="M22 44h20" strokeLinecap="round"/>
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
       </svg>
     ),
   },
   {
-    name: 'SUV',
-    href: '/inventaire?type=SUV',
+    name: 'Occasion',
+    href: '/inventaire?condition=Occasion',
     icon: (
-      <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M6 42h52M10 42l2-10h40l2 10M14 32V22h36v10" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="18" cy="46" r="4"/>
-        <circle cx="46" cy="46" r="4"/>
-        <path d="M22 46h20" strokeLinecap="round"/>
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="M9 12l2 2 4-4" />
       </svg>
     ),
   },
   {
-    name: 'Coupé',
-    href: '/inventaire?type=Coupé',
+    name: 'Sur Commande',
+    href: '/inventaire?availability=Sur Commande',
     icon: (
-      <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M8 40h48M12 40l6-14h20l10 14M18 26l4-6h14l6 6" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="18" cy="44" r="4"/>
-        <circle cx="46" cy="44" r="4"/>
-        <path d="M22 44h20" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
-  {
-    name: 'Citadine',
-    href: '/inventaire?type=Citadine',
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M10 40h44M14 40l4-10h28l4 10M18 30l2-6h24l2 6" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="20" cy="44" r="4"/>
-        <circle cx="44" cy="44" r="4"/>
-        <path d="M24 44h16" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
-  {
-    name: 'Cabriolet',
-    href: '/inventaire?type=Cabriolet',
-    icon: (
-      <svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M8 40h48M12 40l6-12h28l6 12M18 28c4-4 24-4 28 0" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="18" cy="44" r="4"/>
-        <circle cx="46" cy="44" r="4"/>
-        <path d="M22 44h20" strokeLinecap="round"/>
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+        <line x1="9" y1="9" x2="15" y2="9" />
+        <line x1="9" y1="15" x2="15" y2="15" />
       </svg>
     ),
   },

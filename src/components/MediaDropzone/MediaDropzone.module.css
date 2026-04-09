@@ -26,7 +26,7 @@
 .dropzone.active,
 .dropzone:hover {
   border-color: var(--color-primary);
-  background: rgba(255, 70, 5, 0.02);
+  background: rgba(230, 0, 0, 0.02);
 }
 
 .input {

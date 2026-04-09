@@ -25,7 +25,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--color-primary), #ff6b35, var(--color-primary));
+  background: linear-gradient(90deg, var(--color-primary), #ff1a1a, var(--color-primary));
   background-size: 200% 100%;
   animation: gradientShift 3s ease infinite;
 }
@@ -104,8 +104,8 @@
   background: var(--color-surface);
   border-color: var(--color-primary);
   box-shadow:
-    0 0 0 4px rgba(255, 70, 5, 0.08),
-    0 0 20px rgba(255, 70, 5, 0.06);
+    0 0 0 4px rgba(230, 0, 0, 0.08),
+    0 0 20px rgba(230, 0, 0, 0.06);
   transform: translateY(-1px);
 }
 

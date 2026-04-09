@@ -20,18 +20,29 @@ const sortOptions = [
 export default function InventairePage() {
   const searchParams = useSearchParams();
   const typeFromUrl = searchParams.get('type');
+  const conditionFromUrl = searchParams.get('condition');
+  const availabilityFromUrl = searchParams.get('availability');
+  const makeFromUrl = searchParams.get('make');
+  const modelFromUrl = searchParams.get('model');
+  const yearFromUrl = searchParams.get('year');
 
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Filters
-  const [make, setMake] = useState('');
+  const [make, setMake] = useState(makeFromUrl || '');
+  const [model, setModel] = useState(modelFromUrl || '');
+  const [year, setYear] = useState(yearFromUrl || '');
   const [activeType, setActiveType] = useState(typeFromUrl || 'Tous');
   const [fuel, setFuel] = useState('Tous');
   const [drive, setDrive] = useState('Tous');
+  const [availability, setAvailability] = useState(availabilityFromUrl || 'Tous');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  const [conditionTab, setConditionTab] = useState('all');
+  
+  // Map condition URL string (e.g. 'Neuf') to our tab states ('new', 'used', 'all')
+  const initialCondition = conditionFromUrl === 'Neuf' ? 'new' : (conditionFromUrl === 'Occasion' ? 'used' : 'all');
+  const [conditionTab, setConditionTab] = useState(initialCondition);
   const [sortBy, setSortBy] = useState('newest');
   const [keyword, setKeyword] = useState('');
   const [showFilters, setShowFilters] = useState(false);
@@ -47,30 +58,54 @@ export default function InventairePage() {
   }, []);
 
   useEffect(() => {
-    if (typeFromUrl) setActiveType(typeFromUrl);
-  }, [typeFromUrl]);
+    setActiveType(typeFromUrl || 'Tous');
+    setAvailability(availabilityFromUrl || 'Tous');
+    setConditionTab(conditionFromUrl === 'Neuf' ? 'new' : (conditionFromUrl === 'Occasion' ? 'used' : 'all'));
+    setMake(makeFromUrl || '');
+    setModel(modelFromUrl || '');
+    setYear(yearFromUrl || '');
+
+    // If URL is completely clean, reset all secondary filters to default as well
+    if (!typeFromUrl && !availabilityFromUrl && !conditionFromUrl && !makeFromUrl && !modelFromUrl && !yearFromUrl) {
+      setFuel('Tous');
+      setDrive('Tous');
+      setMinPrice('');
+      setMaxPrice('');
+      setKeyword('');
+    }
+  }, [typeFromUrl, availabilityFromUrl, conditionFromUrl, makeFromUrl, modelFromUrl, yearFromUrl]);
 
   // Derived unique makes
   const uniqueMakes = useMemo(() => [...new Set(vehicles.map(v => v.make))].sort(), [vehicles]);
 
-  // Filtered & sorted
-  const results = useMemo(() => {
+  // Pre-condition filtered (for dynamic tab counts)
+  const dynamicPreConditionVehicles = useMemo(() => {
     let filtered = [...vehicles];
 
     if (activeType !== 'Tous') filtered = filtered.filter(v => v.bodyType === activeType);
     if (fuel !== 'Tous') filtered = filtered.filter(v => v.fuel === fuel);
     if (drive !== 'Tous') filtered = filtered.filter(v => v.driveType === drive);
+    if (availability !== 'Tous') filtered = filtered.filter(v => v.availability === availability);
     if (make) filtered = filtered.filter(v => v.make === make);
+    if (model) filtered = filtered.filter(v => v.model === model);
+    if (year) filtered = filtered.filter(v => v.year >= Number(year));
     if (minPrice) filtered = filtered.filter(v => v.price >= Number(minPrice));
     if (maxPrice) filtered = filtered.filter(v => v.price <= Number(maxPrice));
-    if (conditionTab === 'new') filtered = filtered.filter(v => v.condition === 'Neuf');
-    if (conditionTab === 'used') filtered = filtered.filter(v => v.condition === 'Occasion');
     if (keyword) {
       const kw = keyword.toLowerCase();
       filtered = filtered.filter(v =>
         `${v.make} ${v.model} ${v.trim || ''}`.toLowerCase().includes(kw)
       );
     }
+    return filtered;
+  }, [vehicles, activeType, fuel, drive, availability, make, model, year, minPrice, maxPrice, keyword]);
+
+  // Filtered & sorted
+  const results = useMemo(() => {
+    let filtered = [...dynamicPreConditionVehicles];
+
+    if (conditionTab === 'new') filtered = filtered.filter(v => v.condition === 'Neuf');
+    if (conditionTab === 'used') filtered = filtered.filter(v => v.condition === 'Occasion');
 
     switch (sortBy) {
       case 'price-asc': filtered.sort((a, b) => a.price - b.price); break;
@@ -81,14 +116,14 @@ export default function InventairePage() {
     }
 
     return filtered;
-  }, [vehicles, activeType, fuel, drive, make, minPrice, maxPrice, conditionTab, sortBy, keyword]);
+  }, [dynamicPreConditionVehicles, conditionTab, sortBy]);
 
-  const countAll = vehicles.length;
-  const countNew = vehicles.filter(v => v.condition === 'Neuf').length;
-  const countUsed = vehicles.filter(v => v.condition === 'Occasion').length;
+  const countAll = dynamicPreConditionVehicles.length;
+  const countNew = dynamicPreConditionVehicles.filter(v => v.condition === 'Neuf').length;
+  const countUsed = dynamicPreConditionVehicles.filter(v => v.condition === 'Occasion').length;
 
   const clearFilters = () => {
-    setMake(''); setActiveType('Tous'); setFuel('Tous'); setDrive('Tous');
+    setMake(''); setModel(''); setYear(''); setActiveType('Tous'); setFuel('Tous'); setDrive('Tous'); setAvailability('Tous');
     setMinPrice(''); setMaxPrice(''); setKeyword('');
   };
 
@@ -113,6 +148,11 @@ export default function InventairePage() {
             </select>
             <select value={fuel} onChange={e => setFuel(e.target.value)} className={styles.filterSelect}>
               {fuelTypes.map(f => <option key={f} value={f}>{f === 'Tous' ? 'Carburant' : f}</option>)}
+            </select>
+            <select value={availability} onChange={e => setAvailability(e.target.value)} className={styles.filterSelect}>
+              <option value="Tous">Disponibilité : Tous</option>
+              <option value="Disponible">Disponible en Algérie</option>
+              <option value="Sur Commande">Sur Commande</option>
             </select>
             <button className={styles.moreFiltersBtn} onClick={() => setShowFilters(!showFilters)}>
               {showFilters ? '✕ Masquer' : '▼ Plus de filtres'}
@@ -160,7 +200,7 @@ export default function InventairePage() {
 
         <p className={styles.resultCount}><strong>{results.length}</strong> résultat{results.length !== 1 ? 's' : ''}</p>
 
-        {/* Grid */}
+        {/* Unified Grid */}
         {loading ? (
           <div className={styles.grid}>
             {[...Array(6)].map((_, i) => <div key={i} className={styles.skeleton} />)}

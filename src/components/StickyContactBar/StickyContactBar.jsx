@@ -1,10 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import styles from './StickyContactBar.module.css';
 
 export default function StickyContactBar() {
   const [collapsed, setCollapsed] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname?.startsWith('/admin')) {
+    return null; /* Hide on all admin pages */
+  }
 
   return (
     <div className={`${styles.bar} ${collapsed ? styles.collapsed : ''}`}>

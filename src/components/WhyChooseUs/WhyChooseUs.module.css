@@ -12,7 +12,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(255, 70, 5, 0.04) 0%, transparent 50%),
+  background: radial-gradient(circle at 20% 50%, rgba(230, 0, 0, 0.04) 0%, transparent 50%),
               radial-gradient(circle at 80% 50%, rgba(37, 211, 102, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
@@ -28,8 +28,8 @@
 .badge {
   display: inline-block;
   padding: 6px 20px;
-  background: rgba(255, 70, 5, 0.1);
-  border: 1px solid rgba(255, 70, 5, 0.2);
+  background: rgba(230, 0, 0, 0.1);
+  border: 1px solid rgba(230, 0, 0, 0.2);
   border-radius: var(--radius-full);
   color: var(--color-primary);
   font-size: 0.8rem;
@@ -158,8 +158,8 @@
 /* ---- Card Hover shadows per accent ---- */
 .orange:hover {
   box-shadow:
-    0 20px 60px rgba(255, 70, 5, 0.12),
-    0 0 80px rgba(255, 70, 5, 0.06);
+    0 20px 60px rgba(230, 0, 0, 0.12),
+    0 0 80px rgba(230, 0, 0, 0.06);
 }
 
 .green:hover {
@@ -206,9 +206,9 @@
 
 /* Per-accent icon styling */
 .orange .iconInner {
-  background: rgba(255, 70, 5, 0.1);
+  background: rgba(230, 0, 0, 0.1);
   color: var(--color-primary);
-  border: 1px solid rgba(255, 70, 5, 0.15);
+  border: 1px solid rgba(230, 0, 0, 0.15);
 }
 
 .green .iconInner {
@@ -229,7 +229,7 @@
 }
 
 .orange:hover .iconInner {
-  box-shadow: 0 8px 32px rgba(255, 70, 5, 0.2);
+  box-shadow: 0 8px 32px rgba(230, 0, 0, 0.2);
 }
 
 .green:hover .iconInner {

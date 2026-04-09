@@ -8,7 +8,7 @@
 
 .accentBar {
   height: 3px;
-  background: linear-gradient(90deg, var(--color-primary) 0%, #ff6b35 40%, transparent 100%);
+  background: linear-gradient(90deg, var(--color-primary) 0%, #ff1a1a 40%, transparent 100%);
 }
 
 /* ---- Grid Layout ---- */
@@ -66,7 +66,7 @@
   border-color: var(--color-primary);
   color: #fff;
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 24px rgba(255, 70, 5, 0.3);
+  box-shadow: 0 8px 24px rgba(230, 0, 0, 0.3);
 }
 
 /* ---- Column Titles ---- */

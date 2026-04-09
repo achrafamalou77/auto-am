@@ -6,6 +6,9 @@ import { formatPrice } from '@/utils/formatPrice';
 import styles from './VehicleCard.module.css';
 
 export default function VehicleCard({ vehicle, featured = false }) {
+  const availability = vehicle.availability || 'Disponible';
+  const badgeClass = availability === 'Sur Commande' ? styles.badgeSurCommande : styles.badgeDisponible;
+
   return (
     <Link
       href={`/inventory/${vehicle.id}`}
@@ -20,8 +23,19 @@ export default function VehicleCard({ vehicle, featured = false }) {
           fill
           sizes={featured ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 100vw, 33vw'}
           style={{ objectFit: 'cover' }}
-          className={styles.image}
+          className={`${styles.image} ${vehicle.is_sold ? styles.soldImage : ''}`}
         />
+
+        {vehicle.is_sold && (
+          <div className={styles.soldOutStamp}>
+            VENDU
+          </div>
+        )}
+
+        {/* Availability Badge */}
+        <div className={`${styles.availabilityBadge} ${badgeClass}`}>
+          {availability}
+        </div>
 
         {/* Favorite */}
         <button className={styles.favorite} aria-label="Ajouter aux favoris" onClick={(e) => e.preventDefault()}>
@@ -54,8 +68,28 @@ export default function VehicleCard({ vehicle, featured = false }) {
         <p className={styles.price}>{formatPrice(vehicle.price)}</p>
         <div className={styles.meta}>
           <span className={styles.yearBadge}>{vehicle.year}</span>
-          <span className={styles.metaItem}>{vehicle.transmission}</span>
-          <span className={styles.metaItem}>{vehicle.fuel}</span>
+          <span className={styles.metaItem}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            {vehicle.transmission}
+          </span>
+          <span className={styles.metaItem}>
+            {vehicle.fuel === 'Électrique' ? (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            ) : (
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="22" x2="21" y2="22"></line>
+                <line x1="4" y1="9" x2="20" y2="9"></line>
+                <path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"></path>
+                <path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"></path>
+              </svg>
+            )}
+            {vehicle.fuel}
+          </span>
         </div>
       </div>
     </Link>

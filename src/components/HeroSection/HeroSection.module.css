@@ -2,10 +2,11 @@
   position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   overflow: hidden;
   background: var(--color-dark);
+  padding-bottom: 8vh;
 }
 
 .video {
@@ -40,8 +41,11 @@
   width: 100%;
   max-width: 900px;
   padding: 0 24px;
-  padding-top: var(--nav-height);
   animation: heroFadeIn 0.8s ease forwards;
+}
+
+.searchContainer {
+  margin-top: 0;
 }
 
 @keyframes heroFadeIn {

@@ -31,8 +31,30 @@ export default function AdminForm({ initialData = null }) {
     vin: initialData?.vin || '',
     description: initialData?.description || '',
     features: initialData?.features?.join(', ') || '',
+    availability: initialData?.availability || 'Disponible',
+    is_sold: initialData?.is_sold || false,
   });
   const [imagesToUpload, setImagesToUpload] = useState([]);
+  const [existingImages, setExistingImages] = useState(initialData?.images || []);
+
+  const moveImageLeft = (index) => {
+    if (index === 0) return;
+    const newArr = [...existingImages];
+    [newArr[index - 1], newArr[index]] = [newArr[index], newArr[index - 1]];
+    setExistingImages(newArr);
+  };
+
+  const moveImageRight = (index) => {
+    if (index === existingImages.length - 1) return;
+    const newArr = [...existingImages];
+    [newArr[index], newArr[index + 1]] = [newArr[index + 1], newArr[index]];
+    setExistingImages(newArr);
+  };
+
+  const removeExistingImage = (index) => {
+    const newArr = existingImages.filter((_, i) => i !== index);
+    setExistingImages(newArr);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +69,7 @@ export default function AdminForm({ initialData = null }) {
     setSuccess(false);
 
     try {
-      const imageUrls = [];
+      const imageUrls = [...existingImages];
       for (const file of imagesToUpload) {
         const url = await uploadVehicleImage(file);
         imageUrls.push(url);
@@ -76,8 +98,10 @@ export default function AdminForm({ initialData = null }) {
         vin: formData.vin,
         description: formData.description,
         features: featuresArray,
-        images: imageUrls.length > 0 ? imageUrls : (initialData?.images?.length ? initialData.images : ['/images/cars/placeholder.jpg']),
+        images: imageUrls.length > 0 ? imageUrls : ['/images/cars/placeholder.jpg'],
         featured: initialData?.featured || false,
+        availability: formData.availability,
+        is_sold: formData.is_sold,
       };
 
       if (initialData) {
@@ -111,6 +135,32 @@ export default function AdminForm({ initialData = null }) {
         </div>
       )}
 
+      {initialData && existingImages.length > 0 && (
+        <div className={styles.formSection}>
+          <h3 className={styles.sectionTitle}>Images Actuelles ({existingImages.length})</h3>
+          <p style={{ color: 'var(--color-text)', fontSize: '0.9rem', marginBottom: '16px' }}>
+            La première image est l'image principale (couverture) du véhicule. Vous pouvez réorganiser l'ordre avec les flèches.
+          </p>
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', overflowX: 'auto', paddingBottom: '8px' }}>
+            {existingImages.map((url, i) => (
+              <div key={i} style={{ position: 'relative', width: '160px', height: '110px', borderRadius: '12px', overflow: 'hidden', border: i === 0 ? '3px solid var(--color-primary)' : '2px solid var(--color-border)', flexShrink: 0, boxShadow: 'var(--shadow-sm)' }}>
+                <img src={url} alt={`Vehicle image ${i}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                
+                <div style={{ position: 'absolute', bottom: '6px', left: '6px', right: '6px', display: 'flex', justifyContent: 'space-between' }}>
+                  <button type="button" onClick={() => moveImageLeft(i)} disabled={i === 0} style={{ background: 'rgba(0,0,0,0.7)', color: '#fff', border: 'none', borderRadius: '4px', cursor: i === 0 ? 'not-allowed' : 'pointer', padding: '4px 8px', opacity: i === 0 ? 0.3 : 1 }}>&larr;</button>
+                  <button type="button" onClick={() => removeExistingImage(i)} style={{ background: '#ef4444', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', padding: '4px 8px' }}>X</button>
+                  <button type="button" onClick={() => moveImageRight(i)} disabled={i === existingImages.length - 1} style={{ background: 'rgba(0,0,0,0.7)', color: '#fff', border: 'none', borderRadius: '4px', cursor: i === existingImages.length - 1 ? 'not-allowed' : 'pointer', padding: '4px 8px', opacity: i === existingImages.length - 1 ? 0.3 : 1 }}>&rarr;</button>
+                </div>
+                {i === 0 && <span style={{ position: 'absolute', top: 0, left: 0, background: 'var(--color-primary)', color: '#fff', fontSize: '0.65rem', padding: '4px 8px', fontWeight: '800', borderBottomRightRadius: '8px' }}>PRINCIPALE</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className={styles.formSection} style={{ borderBottom: 'none', paddingBottom: 0 }}>
+        <h3 className={styles.sectionTitle}>Ajouter de nouvelles images</h3>
+      </div>
       <MediaDropzone files={imagesToUpload} setFiles={setImagesToUpload} />
 
       {/* SECTION: Informations Principales */}
@@ -143,6 +193,17 @@ export default function AdminForm({ initialData = null }) {
               <option value="Neuf">Neuf</option>
               <option value="Occasion">Occasion</option>
             </select>
+          </div>
+          <div className={styles.field}>
+            <label>Disponibilité</label>
+            <select name="availability" value={formData.availability} onChange={handleChange}>
+              <option value="Disponible">Disponible en Algérie</option>
+              <option value="Sur Commande">Sur Commande</option>
+            </select>
+          </div>
+          <div className={styles.field} style={{ gridColumn: '1 / -1', flexDirection: 'row', alignItems: 'center', gap: '12px', background: 'var(--color-bg)', padding: '16px', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
+            <input type="checkbox" id="is_sold" name="is_sold" checked={formData.is_sold} onChange={e => setFormData(prev => ({ ...prev, is_sold: e.target.checked }))} style={{ width: '22px', height: '22px', cursor: 'pointer' }} />
+            <label htmlFor="is_sold" style={{ margin: 0, cursor: 'pointer', fontSize: '1.05rem', color: '#ef4444' }}>Marquer comme VENDU (Désactive les contacts pour ce véhicule)</label>
           </div>
         </div>
       </div>

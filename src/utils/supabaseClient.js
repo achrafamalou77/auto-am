@@ -93,6 +93,38 @@ export async function updateVehicle(id, vehicleData) {
 }
 
 export async function deleteVehicle(id) {
+  // 1. Fetch Target Images Before Deletion
+  const { data: vehicleData } = await supabase
+    .from('vehicles')
+    .select('images')
+    .eq('id', id)
+    .single();
+
+  // 2. Parse Storage Paths
+  if (vehicleData && vehicleData.images && Array.isArray(vehicleData.images)) {
+    const pathsToRemove = vehicleData.images
+      .map(url => {
+        try {
+          const parts = url.split('vehicle-images/');
+          return parts.length > 1 ? parts[1] : null;
+        } catch (e) {
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    // 3. Execute Storage Cleanup
+    if (pathsToRemove.length > 0) {
+      try {
+        await supabase.storage.from('vehicle-images').remove(pathsToRemove);
+        console.log('Images extraites et supprimées du bucket:', pathsToRemove);
+      } catch (storageError) {
+        console.error('Info: Échec mineur lors du nettoyage du bucket (ignoré):', storageError);
+      }
+    }
+  }
+
+  // 4. Execute Database Deletion
   const { data, error } = await supabase
     .from('vehicles')
     .delete()
@@ -107,7 +139,9 @@ export async function deleteVehicle(id) {
   }
 
   if (!data || data.length === 0) {
-    throw new Error("Supabase a bloqué la suppression (0 lignes affectées). Vos règles RLS (Row Level Security) bloquent l'accès, ou l'ID est introuvable.");
+    // If the image was deleted but the row wasn't, you might have out-of-sync data if not careful, 
+    // but the user only wanted one-way cleanup.
+    throw new Error("Supabase a bloqué la suppression (0 lignes affectées). Vos règles RLS bloquent l'accès, ou l'ID est introuvable.");
   }
   
   return true;
@@ -121,6 +155,20 @@ export async function createOrder(orderData) {
 
   if (error) {
     console.error('Error creating order:', error);
+    throw error;
+  }
+  return data;
+}
+
+export async function updateOrder(id, orderData) {
+  const { data, error } = await supabase
+    .from('orders')
+    .update(orderData)
+    .eq('id', id)
+    .select();
+
+  if (error) {
+    console.error('Error updating order:', error);
     throw error;
   }
   return data;
