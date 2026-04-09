@@ -63,7 +63,7 @@ export default function VehicleCard({ vehicle, featured = false }) {
       {/* Info */}
       <div className={styles.info}>
         <h3 className={styles.title}>
-          {vehicle.make} {vehicle.model} {vehicle.doors > 0 ? `${vehicle.doors}-portes` : ''} {vehicle.bodyType.toLowerCase()} {vehicle.color.toLowerCase()}
+          {vehicle.make} {vehicle.model}
         </h3>
         <p className={styles.price}>{formatPrice(vehicle.price)}</p>
         <div className={styles.meta}>
