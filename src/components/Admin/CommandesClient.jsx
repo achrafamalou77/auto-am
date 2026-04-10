@@ -40,7 +40,7 @@ export default function CommandesClient({ initialOrders }) {
 
   return (
     <div>
-      <h1 style={{ fontSize: '2rem', color: 'var(--color-dark)', marginBottom: '24px' }}>
+      <h1 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', color: 'var(--color-dark)', marginBottom: '24px' }}>
         Commandes & Leads ({orders.length})
       </h1>
 

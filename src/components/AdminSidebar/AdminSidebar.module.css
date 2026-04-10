@@ -11,6 +11,11 @@
   flex-shrink: 0;
 }
 
+.hamburger,
+.closeBtn {
+  display: none;
+}
+
 .brand {
   padding: 0 32px;
   margin-bottom: 48px;
@@ -130,5 +135,118 @@
   .exitLink {
     font-size: 0;
     justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--color-dark);
+    cursor: pointer;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100svh;
+    background: rgba(8, 8, 8, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 1000;
+    flex-direction: column;
+    padding: 0;
+    border-right: none;
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+  }
+
+  .open {
+    transform: translateX(0);
+  }
+
+  .closeBtn {
+    display: flex;
+    position: absolute;
+    top: 24px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .brand {
+    padding: 32px 24px 20px;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+    display: flex;
+  }
+  
+  .brand .logoImage {
+    height: 36px;
+  }
+
+  .nav {
+    flex-direction: column;
+    padding: 0 24px;
+    gap: 16px;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .navLink {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 16px;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .navLink span:not(.icon) {
+    display: inline;
+    font-size: 1.25rem;
+  }
+
+  .icon {
+    margin-right: 12px;
+  }
+
+  .bottom {
+    display: flex;
+    padding: 24px;
+    margin-top: auto;
+    border-left: none;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  .exitLink {
+    color: #fff !important;
+    text-align: left !important;
+    padding: 16px !important;
+    font-size: 1.1rem !important;
+  }
+  
+  .exitLink span:not(.icon) {
+    display: inline;
   }
 }

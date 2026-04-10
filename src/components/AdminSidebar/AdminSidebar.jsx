@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -9,6 +10,9 @@ import styles from './AdminSidebar.module.css';
 export default function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleLogout = async (e) => {
     e.preventDefault();
@@ -56,45 +60,60 @@ export default function AdminSidebar() {
   ];
 
   return (
-    <aside className={styles.sidebar}>
-      <div className={styles.brand}>
-        <Link href="/">
-          <Image
-            src="/images/logo.webp"
-            alt="2s oto Logo"
-            width={90}
-            height={36}
-            priority
-            className={styles.logoImage}
-          />
-        </Link>
-        <div className={styles.badge}>Admin</div>
-      </div>
+    <>
+      <button className={styles.hamburger} onClick={toggleMenu} aria-label="Menu Admin">
+        <svg width="28" height="28" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
 
-      <nav className={styles.nav}>
-        {links.map((link) => {
-          const isActive = pathname === link.href;
-          return (
-            <Link
-              key={link.name}
-              href={link.href}
-              className={`${styles.navLink} ${isActive ? styles.active : ''}`}
-            >
-              <span className={styles.icon}>{link.icon}</span>
-              {link.name}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <div className={styles.bottom}>
-        <button onClick={handleLogout} className={styles.exitLink} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem', padding: '16px' }}>
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+      <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
+        <button className={styles.closeBtn} onClick={toggleMenu} aria-label="Fermer le menu">
+          <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
-          Quitter l&apos;admin
         </button>
-      </div>
-    </aside>
+
+        <div className={styles.brand}>
+          <Link href="/" onClick={() => setIsOpen(false)}>
+            <Image
+              src="/images/logo.webp"
+              alt="2s oto Logo"
+              width={90}
+              height={36}
+              priority
+              className={styles.logoImage}
+            />
+          </Link>
+          <div className={styles.badge}>Admin</div>
+        </div>
+
+        <nav className={styles.nav}>
+          {links.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={`${styles.navLink} ${isActive ? styles.active : ''}`}
+              >
+                <span className={styles.icon}>{link.icon}</span>
+                <span className={styles.linkText}>{link.name}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className={styles.bottom}>
+          <button onClick={handleLogout} className={styles.exitLink} style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem', padding: '16px' }}>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span className={styles.linkText}>Quitter l&apos;admin</span>
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

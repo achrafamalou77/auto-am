@@ -20,9 +20,9 @@ export default function InventoryClient({ vehicles }) {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
-        <h1 style={{ fontSize: '2rem', color: 'var(--color-dark)' }}>Gestion de l&apos;Inventaire</h1>
-        <Link href="/admin/add-vehicle" className="btn-primary" style={{ padding: '10px 20px', borderRadius: '8px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap', gap: '12px' }}>
+        <h1 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', color: 'var(--color-dark)', margin: 0 }}>Gestion de l&apos;Inventaire</h1>
+        <Link href="/admin/add-vehicle" className="btn-primary" style={{ padding: '10px 16px', borderRadius: '8px', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
           + Ajouter un véhicule
         </Link>
       </div>
@@ -49,9 +49,9 @@ export default function InventoryClient({ vehicles }) {
             <tr>
               <th>Image</th>
               <th>Marque & Modèle</th>
-              <th>Année</th>
-              <th>Prix (DA)</th>
-              <th>Statut</th>
+              <th className="hide-on-mobile">Année</th>
+              <th className="hide-on-mobile">Prix (DA)</th>
+              <th className="hide-on-mobile">Statut</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -73,9 +73,9 @@ export default function InventoryClient({ vehicles }) {
                 <td>
                   <strong>{vehicle.make}</strong> {vehicle.model} {vehicle.trim && <span style={{ fontSize: '0.85rem', color: '#666' }}>({vehicle.trim})</span>}
                 </td>
-                <td>{vehicle.year}</td>
-                <td><strong>{formatPrice(vehicle.price)}</strong></td>
-                <td>
+                <td className="hide-on-mobile">{vehicle.year}</td>
+                <td className="hide-on-mobile"><strong>{formatPrice(vehicle.price)}</strong></td>
+                <td className="hide-on-mobile">
                   {vehicle.is_sold ? (
                     <span style={{ padding: '4px 8px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 600 }}>
                       Vendu
