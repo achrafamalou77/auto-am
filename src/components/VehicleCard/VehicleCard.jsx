@@ -19,7 +19,7 @@ export default function VehicleCard({ vehicle, featured = false }) {
       <div className={styles.imageWrap}>
         <Image
           src={vehicle.images?.[0] || '/images/cars/placeholder.jpg'}
-          alt={`${vehicle.make} ${vehicle.model}`}
+          alt={`${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} ${vehicle.year} chez SARL 2S Auto Alger`.replace(/\s+/g, ' ').trim()}
           fill
           sizes={featured ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 100vw, 33vw'}
           style={{ objectFit: 'cover' }}

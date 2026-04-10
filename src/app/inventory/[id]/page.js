@@ -11,11 +11,34 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
   const vehicle = await getVehicleById(id);
 
-  if (!vehicle) return { title: 'Véhicule Introuvable' };
+  if (!vehicle) return { title: 'Véhicule Introuvable | SARL 2S Auto' };
+
+  const title = `${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} ${vehicle.year} | SARL 2S Auto`;
+  const description = vehicle.description || `Achetez cette superbe ${vehicle.make} ${vehicle.model} ${vehicle.year} chez SARL 2S Auto. Prix: ${formatPrice(vehicle.price)}.`;
+  const image = vehicle.images?.[0] || '/images/hero-poster.jpg';
 
   return {
-    title: `${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} - ${vehicle.year} | 2s oto`,
-    description: vehicle.description || `Découvrez la ${vehicle.make} ${vehicle.model} ${vehicle.year} chez 2s oto.`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: image,
+          width: 800,
+          height: 600,
+          alt: `${vehicle.make} ${vehicle.model} à Alger`,
+        },
+      ],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [image],
+    },
   };
 }
 
@@ -49,8 +72,37 @@ export default async function ListingPage({ params }) {
     { label: 'VIN', value: vehicle.vin },
   ].filter(s => s.value);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Vehicle',
+    name: title,
+    image: vehicle.images?.[0] || 'https://www.sarl2sauto.dz/images/hero-poster.jpg',
+    description: vehicle.description || `Achetez cette superbe ${title} chez SARL 2S Auto`,
+    brand: {
+      '@type': 'Brand',
+      name: vehicle.make,
+    },
+    model: vehicle.model,
+    vehicleModelDate: vehicle.year,
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'DZD',
+      price: vehicle.price,
+      itemCondition: vehicle.condition?.toLowerCase().includes('neuf') ? 'https://schema.org/NewCondition' : 'https://schema.org/UsedCondition',
+      availability: vehicle.is_sold ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
+      seller: {
+        '@type': 'AutoDealer',
+        name: 'SARL 2S Auto',
+      }
+    }
+  };
+
   return (
     <main className={styles.page}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="container">
 
         {/* ====== Two-Column Layout (Vehica Style) ====== */}

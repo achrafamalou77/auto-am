@@ -15,7 +15,7 @@ export default function Gallery({ images, title }) {
       <div className={styles.mainView}>
         <Image
           src={images[activeIndex]}
-          alt={`${title} - image ${activeIndex + 1}`}
+          alt={`${title} chez SARL 2S Auto Alger - Vue ${activeIndex + 1}`}
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 70vw"
@@ -59,7 +59,7 @@ export default function Gallery({ images, title }) {
             >
               <Image
                 src={img}
-                alt={`${title} miniature ${idx + 1}`}
+                alt={`Miniature de ${title} chez SARL 2S Auto Alger - ${idx + 1}`}
                 fill
                 sizes="150px"
                 className={styles.thumbImg}
