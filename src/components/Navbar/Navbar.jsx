@@ -57,7 +57,7 @@ export default function Navbar() {
               router.push('/inventaire');
             }}
           >
-            Inventaire
+            Véhicules
           </a>
           <Link
             href="/contact"

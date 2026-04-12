@@ -36,7 +36,7 @@ const reasons = [
       </svg>
     ),
     step: '03',
-    title: '+70 Clients Satisfaits',
+    title: '+370 Clients Satisfaits',
     description:
       "Notre réputation n'est plus à faire. Rejoignez notre communauté grandissante d'acheteurs qui nous ont fait confiance pour leur projet automobile.",
     accent: 'gold',
