@@ -68,7 +68,7 @@ export default function Footer() {
           <h4 className={styles.colTitle}>Navigation</h4>
           <ul className={styles.links}>
             <li><Link href="/">Accueil</Link></li>
-            <li><Link href="/inventaire">Inventaire</Link></li>
+            <li><Link href="/inventaire">Véhicules</Link></li>
             <li><Link href="/contact">Contact</Link></li>
           </ul>
         </div>
