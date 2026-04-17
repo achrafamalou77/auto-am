@@ -156,6 +156,11 @@ export default function Footer() {
           </p>
         </div>
       </div>
+
+      {/* Meta Domain Verification Legal Footer */}
+      <div className="w-full text-center p-6 text-xs text-gray-400 mt-auto" dir="auto">
+        © 2026 SARL 2S OTO (شركة ذات المسؤولية المحدودة دو أس أوطو). حي محمد بوضياف محل رقم 02 أولاد هداج.
+      </div>
     </footer>
   );
 }
