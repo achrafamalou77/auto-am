@@ -15,8 +15,16 @@ export async function GET(request) {
     // 1. "Omni-Search" Parameter
     const search = searchParams.get('search');
     if (search) {
-      // Use ilike for case-insensitive partial matches across safe columns
-      query = query.or(`make.ilike.%${search}%,model.ilike.%${search}%`);
+      // Split by whitespace to evaluate each word independently
+      const searchWords = search.trim().split(/\s+/);
+      
+      searchWords.forEach(word => {
+        if (word) {
+          // In supabase-js, chaining multiple .or() appends them together using AND logic.
+          // This forces the API to ensure EACH word exists SOMEWHERE in the car's data.
+          query = query.or(`make.ilike.%${word}%,model.ilike.%${word}%,finition.ilike.%${word}%,couleur.ilike.%${word}%,transmission.ilike.%${word}%,boite_de_vitesse.ilike.%${word}%,carburant.ilike.%${word}%,equipements_options.ilike.%${word}%`);
+        }
+      });
     }
 
     // 2. Smart Filtering Parameters
