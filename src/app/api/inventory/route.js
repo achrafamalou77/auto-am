@@ -22,7 +22,7 @@ export async function GET(request) {
         if (word) {
           // In supabase-js, chaining multiple .or() appends them together using AND logic.
           // This forces the API to ensure EACH word exists SOMEWHERE in the car's data.
-          query = query.or(`make.ilike.%${word}%,model.ilike.%${word}%,finition.ilike.%${word}%,color.ilike.%${word}%,transmission.ilike.%${word}%,fuel.ilike.%${word}%`);
+          query = query.or(`make.ilike.%${word}%,model.ilike.%${word}%,trim.ilike.%${word}%,color.ilike.%${word}%,transmission.ilike.%${word}%,fuel.ilike.%${word}%`);
         }
       });
     }
