@@ -34,8 +34,8 @@ export const metadata = {
     images: ['/images/hero-poster.jpeg'],
   },
   icons: {
-    icon: '/images/logo.webp',
-    apple: '/images/logo.webp',
+    icon: '/images/logo.png',
+    apple: '/images/logo.png',
   },
 };
 
@@ -45,7 +45,7 @@ export default async function RootLayout({ children, params }) {
     '@context': 'https://schema.org',
     '@type': 'AutoDealer',
     name: 'Amine Auto',
-    image: 'https://www.amineauto.dz/images/logo.webp',
+    image: 'https://www.amineauto.dz/images/logo.png',
     '@id': 'https://www.amineauto.dz',
     url: 'https://www.amineauto.dz',
     telephone: '+213560003106',

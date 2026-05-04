@@ -5,7 +5,16 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '*.supabase.co',
+        hostname: 'bynpfodragqvgrsrphgo.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.amineauto.dz',
+      },
+      {
+        protocol: 'https',
+        hostname: 'auto-am.vercel.app',
       },
     ],
   },
