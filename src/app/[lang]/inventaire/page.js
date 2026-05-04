@@ -4,20 +4,27 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/utils/supabaseClient';
 import VehicleCard from '@/components/VehicleCard/VehicleCard';
+import { useParams } from 'next/navigation';
+import fr from '@/dictionaries/fr.json';
+import ar from '@/dictionaries/ar.json';
 import styles from './inventaire.module.css';
 
 const bodyTypes = ['Tous', 'Berline', 'SUV', 'Coupé', 'Citadine', 'Cabriolet'];
 const fuelTypes = ['Tous', 'Essence', 'Diesel', 'Hybride', 'Électrique'];
 const driveTypes = ['Tous', 'FWD', 'RWD', 'AWD', '4WD'];
-const sortOptions = [
-  { value: 'newest', label: 'Plus récent' },
-  { value: 'price-asc', label: 'Prix croissant' },
-  { value: 'price-desc', label: 'Prix décroissant' },
-  { value: 'year-desc', label: 'Année récente' },
-  { value: 'mileage-asc', label: 'Kilométrage bas' },
-];
 
 export default function InventairePage() {
+  const params = useParams();
+  const lang = params?.lang || 'fr';
+  const dict = lang === 'ar' ? ar : fr;
+
+  const sortOptions = [
+    { value: 'newest', label: dict.inventory.sortNewest },
+    { value: 'price-asc', label: dict.inventory.sortPriceAsc },
+    { value: 'price-desc', label: dict.inventory.sortPriceDesc },
+    { value: 'year-desc', label: dict.inventory.sortYearDesc },
+    { value: 'mileage-asc', label: dict.inventory.sortMileageAsc },
+  ];
   const searchParams = useSearchParams();
   const typeFromUrl = searchParams.get('type');
   const conditionFromUrl = searchParams.get('condition');
@@ -36,7 +43,7 @@ export default function InventairePage() {
   const [activeType, setActiveType] = useState(typeFromUrl || 'Tous');
   const [fuel, setFuel] = useState('Tous');
   const [drive, setDrive] = useState('Tous');
-  const [availability, setAvailability] = useState(availabilityFromUrl || 'Tous');
+  const [availability, setAvailability] = useState(availabilityFromUrl || 'Disponible');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   
@@ -59,7 +66,7 @@ export default function InventairePage() {
 
   useEffect(() => {
     setActiveType(typeFromUrl || 'Tous');
-    setAvailability(availabilityFromUrl || 'Tous');
+    setAvailability(availabilityFromUrl || 'Disponible');
     setConditionTab(conditionFromUrl === 'Neuf' ? 'new' : (conditionFromUrl === 'Occasion' ? 'used' : 'all'));
     setMake(makeFromUrl || '');
     setModel(modelFromUrl || '');
@@ -131,8 +138,8 @@ export default function InventairePage() {
     <main className={styles.page}>
       {/* Hero */}
       <section className={styles.hero}>
-        <h1>Notre Inventaire</h1>
-        <p>Trouvez le véhicule parfait parmi notre collection exclusive.</p>
+        <h1>{dict.inventory.heroTitle}</h1>
+        <p>{dict.inventory.heroSubtitle}</p>
       </section>
 
       <div className={`container ${styles.body}`}>
@@ -140,33 +147,32 @@ export default function InventairePage() {
         <div className={styles.filterBar}>
           <div className={styles.filterRow}>
             <select value={make} onChange={e => setMake(e.target.value)} className={styles.filterSelect}>
-              <option value="">Toutes les Marques</option>
+              <option value="">{dict.inventory.filterAllMakes}</option>
               {uniqueMakes.map(m => <option key={m} value={m}>{m}</option>)}
             </select>
             <select value={activeType} onChange={e => setActiveType(e.target.value)} className={styles.filterSelect}>
-              {bodyTypes.map(t => <option key={t} value={t}>{t === 'Tous' ? 'Type de carrosserie' : t}</option>)}
+              {bodyTypes.map(t => <option key={t} value={t}>{t === 'Tous' ? dict.inventory.filterBodyType : t}</option>)}
             </select>
             <select value={fuel} onChange={e => setFuel(e.target.value)} className={styles.filterSelect}>
-              {fuelTypes.map(f => <option key={f} value={f}>{f === 'Tous' ? 'Carburant' : f}</option>)}
+              {fuelTypes.map(f => <option key={f} value={f}>{f === 'Tous' ? dict.inventory.filterFuel : f}</option>)}
             </select>
             <select value={availability} onChange={e => setAvailability(e.target.value)} className={styles.filterSelect}>
-              <option value="Tous">Disponibilité : Tous</option>
-              <option value="Disponible">Disponible en Algérie</option>
-              <option value="Sur Commande">Sur Commande</option>
+              <option value="Tous">{dict.inventory.filterAvailAll}</option>
+              <option value="Disponible">{dict.inventory.filterAvailNow}</option>
             </select>
             <button className={styles.moreFiltersBtn} onClick={() => setShowFilters(!showFilters)}>
-              {showFilters ? '✕ Masquer' : '▼ Plus de filtres'}
+              {showFilters ? dict.inventory.filterLess : dict.inventory.filterMore}
             </button>
           </div>
 
           {showFilters && (
             <div className={styles.filterRow}>
               <select value={drive} onChange={e => setDrive(e.target.value)} className={styles.filterSelect}>
-                {driveTypes.map(d => <option key={d} value={d}>{d === 'Tous' ? 'Transmission' : d}</option>)}
+                {driveTypes.map(d => <option key={d} value={d}>{d === 'Tous' ? dict.inventory.filterDrive : d}</option>)}
               </select>
-              <input type="number" placeholder="Prix min (DA)" value={minPrice} onChange={e => setMinPrice(e.target.value)} className={styles.filterInput} />
-              <input type="number" placeholder="Prix max (DA)" value={maxPrice} onChange={e => setMaxPrice(e.target.value)} className={styles.filterInput} />
-              <button className={styles.clearBtn} onClick={clearFilters}>Effacer tout</button>
+              <input type="number" placeholder={dict.inventory.filterPriceMin} value={minPrice} onChange={e => setMinPrice(e.target.value)} className={styles.filterInput} />
+              <input type="number" placeholder={dict.inventory.filterPriceMax} value={maxPrice} onChange={e => setMaxPrice(e.target.value)} className={styles.filterInput} />
+              <button className={styles.clearBtn} onClick={clearFilters}>{dict.inventory.filterClear}</button>
             </div>
           )}
         </div>
@@ -175,22 +181,22 @@ export default function InventairePage() {
         <div className={styles.toolbar}>
           <div className={styles.conditionTabs}>
             <button className={`${styles.condTab} ${conditionTab === 'all' ? styles.condTabActive : ''}`} onClick={() => setConditionTab('all')}>
-              Tous ({countAll})
+              {dict.inventory.tabAll} ({countAll})
             </button>
             <button className={`${styles.condTab} ${conditionTab === 'new' ? styles.condTabActive : ''}`} onClick={() => setConditionTab('new')}>
-              Neuf ({countNew})
+              {dict.inventory.tabNew} ({countNew})
             </button>
             <button className={`${styles.condTab} ${conditionTab === 'used' ? styles.condTabActive : ''}`} onClick={() => setConditionTab('used')}>
-              Occasion ({countUsed})
+              {dict.inventory.tabUsed} ({countUsed})
             </button>
           </div>
           <div className={styles.toolbarRight}>
             <div className={styles.searchBox}>
-              <input type="text" placeholder="Rechercher..." value={keyword} onChange={e => setKeyword(e.target.value)} className={styles.keywordInput} />
+              <input type="text" placeholder={dict.inventory.searchPlaceholder} value={keyword} onChange={e => setKeyword(e.target.value)} className={styles.keywordInput} />
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.searchIcon}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </div>
             <div className={styles.sortWrap}>
-              <span>Trier:</span>
+              <span>{dict.inventory.sortLabel}</span>
               <select value={sortBy} onChange={e => setSortBy(e.target.value)} className={styles.sortSelect}>
                 {sortOptions.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
@@ -198,7 +204,7 @@ export default function InventairePage() {
           </div>
         </div>
 
-        <p className={styles.resultCount}><strong>{results.length}</strong> résultat{results.length !== 1 ? 's' : ''}</p>
+        <p className={styles.resultCount}><strong>{results.length}</strong> {results.length !== 1 ? dict.inventory.resultsCountPlural : dict.inventory.resultsCount}</p>
 
         {/* Unified Grid */}
         {loading ? (
@@ -207,9 +213,9 @@ export default function InventairePage() {
           </div>
         ) : results.length === 0 ? (
           <div className={styles.empty}>
-            <h3>Aucun véhicule trouvé</h3>
-            <p>Essayez de modifier vos filtres.</p>
-            <button onClick={clearFilters} className="btn-primary" style={{ marginTop: '16px' }}>Effacer les filtres</button>
+            <h3>{dict.inventory.emptyTitle}</h3>
+            <p>{dict.inventory.emptyDesc}</p>
+            <button onClick={clearFilters} className="btn-primary" style={{ marginTop: '16px' }}>{dict.inventory.btnEmptyClear}</button>
           </div>
         ) : (
           <div className={styles.grid}>

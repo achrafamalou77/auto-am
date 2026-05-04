@@ -42,7 +42,7 @@ export default function ContactSidebar({ vehicle, hidePriceBox = false }) {
     }
   };
   const waMessage = `Bonjour, je suis intéressé par la ${vehicle.make} ${vehicle.model} affichée à ${formatPrice(vehicle.price)}. Est-elle toujours disponible ?`;
-  const waUrl = `https://wa.me/213550599437?text=${encodeURIComponent(waMessage)}`;
+  const waUrl = `https://wa.me/213560003106?text=${encodeURIComponent(waMessage)}`;
 
   return (
     <div className={styles.sidebar} id="contact-sidebar">
@@ -60,11 +60,11 @@ export default function ContactSidebar({ vehicle, hidePriceBox = false }) {
         </p>
 
         {vehicle.is_sold ? (
-          <div style={{ padding: '20px', background: 'rgba(100, 100, 100, 0.1)', border: '2px solid rgba(100,100,100,0.3)', color: 'var(--color-text)', borderRadius: '8px', marginBottom: '16px', textAlign: 'center', fontWeight: 'bold' }}>
+          <div style={{ padding: '20px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--color-text-muted)', borderRadius: '8px', marginBottom: '16px', textAlign: 'center', fontWeight: 'bold' }}>
             Ce véhicule a été vendu. Les réservations sont clôturées.
           </div>
         ) : success ? (
-          <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', color: '#16a34a', borderRadius: '8px', marginBottom: '16px' }}>
+          <div style={{ padding: '16px', background: 'rgba(0, 255, 136, 0.1)', color: 'var(--color-disponible)', borderRadius: '8px', marginBottom: '16px', border: '1px solid rgba(0,255,136,0.2)' }}>
             <strong>Demande envoyée !</strong> Notre équipe vous contactera rapidement.
           </div>
         ) : (
@@ -89,7 +89,7 @@ export default function ContactSidebar({ vehicle, hidePriceBox = false }) {
         </div>
 
         {vehicle.is_sold ? (
-          <button disabled className={styles.whatsappBtn} style={{ background: '#555', cursor: 'not-allowed', boxShadow: 'none' }}>
+          <button disabled className={styles.whatsappBtn} style={{ background: '#333', cursor: 'not-allowed', boxShadow: 'none' }}>
             Véhicule Vendu
           </button>
         ) : (

@@ -4,7 +4,8 @@ import { useState, useMemo } from 'react';
 import VehicleCard from '../VehicleCard/VehicleCard';
 import styles from './PopularMakes.module.css';
 
-export default function PopularMakes({ vehicles = [] }) {
+export default function PopularMakes({ vehicles = [], dict }) {
+  if (!dict) return null;
   /* Extract unique makes with counts */
   const makes = useMemo(() => {
     const map = {};
@@ -34,14 +35,14 @@ export default function PopularMakes({ vehicles = [] }) {
         {/* ---- Header Row ---- */}
         <div className={styles.header}>
           <div>
-            <span className={styles.badge}>Explorer</span>
-            <h2 className={styles.heading}>Marques Populaires</h2>
+            <span className={styles.badge}>{dict.badge}</span>
+            <h2 className={styles.heading}>{dict.heading}</h2>
           </div>
           <div className={styles.social}>
-            <span className={styles.socialLabel}>Suivez-nous</span>
+            <span className={styles.socialLabel}>{dict.socialLabel}</span>
             {/* Facebook */}
             <a
-              href="https://www.facebook.com/"
+              href="https://www.facebook.com/profile.php?id=61579605512823"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.socialBtn}
@@ -53,7 +54,7 @@ export default function PopularMakes({ vehicles = [] }) {
             </a>
             {/* Instagram */}
             <a
-              href="https://www.instagram.com/sarl_2s_auto/"
+              href="https://www.instagram.com/amineauto35/"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.socialBtn}
@@ -65,7 +66,7 @@ export default function PopularMakes({ vehicles = [] }) {
             </a>
             {/* TikTok */}
             <a
-              href="https://www.tiktok.com/@sarl_2s_auto"
+              href="https://www.tiktok.com/@amine.auto.35"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.socialBtn}
@@ -88,7 +89,7 @@ export default function PopularMakes({ vehicles = [] }) {
             >
               <span className={styles.tabName}>{m.name}</span>
               <span className={styles.tabCount}>
-                {m.count} {m.count === 1 ? 'Véhicule' : 'Véhicules'}
+                {m.count} {m.count === 1 ? dict.vehicle : dict.vehicles}
               </span>
             </button>
           ))}

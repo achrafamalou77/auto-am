@@ -1,88 +1,83 @@
-/* ===== Popular Makes: Vehica-Inspired Section ===== */
+/* ===== Popular Makes — Amine Auto ===== */
 
 .section {
-  padding: 72px 0 80px;
+  padding: 80px 0;
   background: var(--color-bg);
 }
 
-/* ---- Header Row ---- */
 .header {
   display: flex;
-  align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
+  align-items: flex-end;
   margin-bottom: 36px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .badge {
   display: inline-block;
-  padding: 5px 16px;
-  background: rgba(230, 0, 0, 0.08);
-  border: 1px solid rgba(230, 0, 0, 0.15);
-  border-radius: var(--radius-full);
+  padding: 5px 14px;
+  background: rgba(212, 175, 55, 0.08);
   color: var(--color-primary);
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
-  margin-bottom: 10px;
+  letter-spacing: 1.5px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  margin-bottom: 12px;
 }
 
 .heading {
+  font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 800;
-  color: var(--color-dark);
-  letter-spacing: -0.5px;
-  line-height: 1.15;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: var(--tracking-tight);
 }
 
-/* Social follow group */
+/* Social */
 .social {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
 }
 
 .socialLabel {
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.82rem;
   color: var(--color-text-muted);
+  font-weight: 500;
   margin-right: 4px;
-  white-space: nowrap;
 }
 
 .socialBtn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
   color: var(--color-text-muted);
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  text-decoration: none;
+  transition: all var(--transition-fast);
+  border: 1px solid var(--color-border);
 }
 
 .socialBtn:hover {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-primary);
+  background: rgba(212, 175, 55, 0.06);
+  border-color: rgba(212, 175, 55, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(230, 0, 0, 0.3);
 }
 
-/* ---- Make Tabs ---- */
+/* Tabs */
 .tabs {
   display: flex;
-  gap: 0;
-  border-bottom: 2px solid var(--color-border);
+  gap: 8px;
   margin-bottom: 32px;
   overflow-x: auto;
+  padding-bottom: 8px;
   scrollbar-width: none;
-  -ms-overflow-style: none;
 }
 
 .tabs::-webkit-scrollbar {
@@ -90,116 +85,66 @@
 }
 
 .tab {
-  padding: 16px 28px;
-  cursor: pointer;
-  border: none;
-  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  position: relative;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
   white-space: nowrap;
-  transition: all 0.25s ease;
   flex-shrink: 0;
 }
 
-.tab::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: transparent;
-  border-radius: 3px 3px 0 0;
-  transition: background 0.25s ease;
-}
-
 .tab:hover {
-  background: rgba(230, 0, 0, 0.03);
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-hover);
 }
 
-.tabActive::after {
-  background: var(--color-primary);
+.tabActive {
+  border-color: var(--color-primary);
+  background: rgba(212, 175, 55, 0.06);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
 }
 
 .tabName {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-text-muted);
-  transition: color 0.25s ease;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
 }
 
 .tabActive .tabName {
   color: var(--color-primary);
 }
 
-.tab:hover .tabName {
-  color: var(--color-dark);
-}
-
 .tabCount {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--color-text-muted);
-  font-weight: 500;
-  opacity: 0.7;
+  margin-top: 2px;
 }
 
-.tabActive .tabCount {
-  color: var(--color-primary);
-  opacity: 0.85;
-}
-
-/* ---- Vehicle Grid ---- */
+/* Grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-/* ====== Responsive ====== */
-@media (max-width: 1200px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .tab {
-    padding: 14px 20px;
-  }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .section {
-    padding: 48px 0 56px;
+    padding: 60px 0;
   }
-
   .heading {
     font-size: 1.5rem;
   }
-
+  .socialLabel {
+    display: none;
+  }
   .grid {
     grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .tab {
-    padding: 12px 16px;
-  }
-
-  .tabName {
-    font-size: 0.9rem;
+    gap: 16px;
   }
 }

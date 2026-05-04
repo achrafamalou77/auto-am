@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { makes, modelsByMake } from '@/utils/mockData';
+import fr from '@/dictionaries/fr.json';
+import ar from '@/dictionaries/ar.json';
 import styles from './SearchBar.module.css';
 
 export default function SearchBar() {
@@ -10,16 +12,19 @@ export default function SearchBar() {
   const [selectedModel, setSelectedModel] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
   const router = useRouter();
+  const paramsHook = useParams();
+  const lang = paramsHook?.lang || 'fr';
+  const dict = lang === 'ar' ? ar : fr;
 
   const models = selectedMake ? modelsByMake[selectedMake] || [] : [];
   const yearOptions = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026];
 
   const handleSearch = () => {
     const params = new URLSearchParams();
-    if (selectedMake && selectedMake !== 'Toutes les Marques') params.append('make', selectedMake);
-    if (selectedModel && selectedModel !== 'Tous les Modèles') params.append('model', selectedModel);
+    if (selectedMake && selectedMake !== 'Toutes les Marques' && selectedMake !== dict.search.allMakes) params.append('make', selectedMake);
+    if (selectedModel && selectedModel !== 'Tous les Modèles' && selectedModel !== dict.search.allModels) params.append('model', selectedModel);
     if (selectedYear) params.append('year', selectedYear);
-    router.push(`/inventaire?${params.toString()}`);
+    router.push(`/${lang}/inventaire?${params.toString()}`);
   };
 
   return (
@@ -34,7 +39,7 @@ export default function SearchBar() {
           className={styles.select}
           id="search-make"
         >
-          <option value="">Toutes les Marques</option>
+          <option value="">{dict.search.allMakes}</option>
           {makes.map((make) => (
             <option key={make} value={make}>
               {make}
@@ -53,7 +58,7 @@ export default function SearchBar() {
           disabled={!selectedMake}
           id="search-model"
         >
-          <option value="">Tous les Modèles</option>
+          <option value="">{dict.search.allModels}</option>
           {models.map((model) => (
             <option key={model} value={model}>
               {model}
@@ -71,10 +76,10 @@ export default function SearchBar() {
           className={styles.select}
           id="search-year"
         >
-          <option value="">Année Min</option>
+          <option value="">{dict.search.minYear}</option>
           {yearOptions.map((year) => (
             <option key={year} value={year}>
-              {year} ou plus récent
+              {year} {dict.search.orNewer}
             </option>
           ))}
         </select>

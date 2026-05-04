@@ -1,20 +1,22 @@
-/* ===== Premium Vehica-Style Card ===== */
+/* ===== Sleek Dark Vehicle Card — Amine Auto ===== */
 
 .card {
   display: block;
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: #1c2331;
+  background: var(--color-surface);
   cursor: pointer;
   position: relative;
+  border: 1px solid var(--color-border);
 }
 
 .card:hover {
   transform: translateY(-8px);
+  border-color: rgba(212, 175, 55, 0.15);
   box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.25),
-    0 8px 24px rgba(0, 0, 0, 0.15);
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(212, 175, 55, 0.06);
 }
 
 /* ---- Image ---- */
@@ -40,7 +42,7 @@
 }
 
 .soldImage {
-  filter: grayscale(80%) brightness(75%);
+  filter: grayscale(80%) brightness(50%);
 }
 
 .soldOutStamp {
@@ -49,15 +51,16 @@
   left: 50%;
   transform: translate(-50%, -50%) rotate(-15deg);
   background: rgba(0, 0, 0, 0.85);
-  border: 4px solid white;
-  color: white;
-  font-weight: 900;
-  padding: 10px 24px;
+  border: 3px solid var(--color-primary);
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-weight: 700;
+  padding: 10px 28px;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   z-index: 10;
-  font-size: 1.6rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  font-size: 1.4rem;
+  box-shadow: 0 0 30px var(--color-primary-glow);
   pointer-events: none;
 }
 
@@ -69,9 +72,9 @@
   background: linear-gradient(
     115deg,
     transparent 20%,
-    rgba(255, 255, 255, 0.1) 40%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.1) 60%,
+    rgba(212, 175, 55, 0.05) 40%,
+    rgba(212, 175, 55, 0.1) 50%,
+    rgba(212, 175, 55, 0.05) 60%,
     transparent 80%
   );
   transform: translateX(-120%);
@@ -92,7 +95,7 @@
   left: 0;
   right: 0;
   height: 50%;
-  background: linear-gradient(to top, rgba(28, 35, 49, 0.7) 0%, transparent 100%);
+  background: linear-gradient(to top, var(--color-surface) 0%, transparent 100%);
   z-index: 1;
   pointer-events: none;
   opacity: 0;
@@ -100,7 +103,7 @@
 }
 
 .card:hover .imageWrap::before {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 /* ---- Favorite button ---- */
@@ -110,7 +113,7 @@
   left: 12px;
   width: 36px;
   height: 36px;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 50%;
@@ -126,41 +129,71 @@
 .favorite:hover {
   background: var(--color-primary);
   border-color: var(--color-primary);
+  color: var(--color-dark);
   transform: scale(1.15);
-  box-shadow: 0 4px 16px rgba(230, 0, 0, 0.4);
+  box-shadow: 0 0 20px var(--color-primary-glow);
 }
 
 .favorite:active {
   transform: scale(0.95);
 }
 
-/* ---- Availability Badge ---- */
+/* ---- Availability Badge with Glow ---- */
 .availabilityBadge {
   position: absolute;
   top: 12px;
   right: 12px;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 6px;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   z-index: 3;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
 }
 
 .badgeDisponible {
-  background: rgba(22, 163, 74, 0.85); /* Vibrant Green */
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 40, 20, 0.8);
+  color: var(--color-disponible);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  box-shadow: 0 0 15px var(--color-disponible-glow);
+}
+
+.badgeDisponible .badgeDot {
+  background: var(--color-disponible);
+  box-shadow: 0 0 6px var(--color-disponible);
+  animation: dotPulse 2s ease-in-out infinite;
 }
 
 .badgeSurCommande {
-  background: rgba(37, 99, 235, 0.85); /* Deep Blue */
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(40, 20, 0, 0.8);
+  color: var(--color-sur-commande);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  box-shadow: 0 0 15px var(--color-sur-commande-glow);
+}
+
+.badgeSurCommande .badgeDot {
+  background: var(--color-sur-commande);
+  box-shadow: 0 0 6px var(--color-sur-commande);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
 }
 
 /* ---- Image count badge ---- */
@@ -173,7 +206,7 @@
   gap: 4px;
   padding: 5px 12px;
   border-radius: var(--radius-full);
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   color: #fff;
@@ -190,8 +223,8 @@
   left: -30px;
   width: 120px;
   padding: 5px 0;
-  background: linear-gradient(135deg, var(--color-primary), #ff1a1a);
-  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), #0099cc);
+  color: var(--color-dark);
   font-size: 0.68rem;
   font-weight: 700;
   text-align: center;
@@ -199,18 +232,19 @@
   letter-spacing: 1px;
   transform: rotate(-45deg);
   z-index: 3;
-  box-shadow: 0 3px 12px rgba(230, 0, 0, 0.5);
+  box-shadow: 0 3px 12px var(--color-primary-glow);
 }
 
 /* ---- Info panel ---- */
 .info {
   padding: 16px 20px 18px;
-  background: #1c2331;
+  background: var(--color-surface);
   position: relative;
 }
 
 .title {
-  font-size: 0.92rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
   font-weight: 600;
   color: #fff;
   white-space: nowrap;
@@ -226,8 +260,9 @@
 }
 
 .price {
+  font-family: var(--font-display);
   font-size: 1.15rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #fff;
   margin-bottom: 12px;
   letter-spacing: -0.3px;
@@ -240,7 +275,7 @@
   gap: 10px;
   flex-wrap: wrap;
   padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--color-border);
 }
 
 .yearBadge {
@@ -248,7 +283,7 @@
   align-items: center;
   padding: 4px 10px;
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-dark);
   border-radius: 4px;
   font-size: 0.78rem;
   font-weight: 700;
@@ -257,7 +292,7 @@
 
 .metaItem {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--color-text-muted);
   font-weight: 400;
   display: flex;
   align-items: center;
@@ -266,7 +301,7 @@
 
 .metaItem::before {
   content: '·';
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.15);
   font-size: 0.9rem;
   font-weight: 700;
 }
@@ -293,8 +328,20 @@
   font-size: 1.35rem;
 }
 
+@media (max-width: 1024px) {
+  .featured .imageWrap {
+    aspect-ratio: 16 / 9;
+    height: auto;
+    min-height: auto;
+    flex: none;
+  }
+}
+
 @media (max-width: 768px) {
   .featured .imageWrap {
-    min-height: 220px;
+    aspect-ratio: 3 / 2;
+    height: auto;
+    min-height: auto;
+    flex: none;
   }
 }

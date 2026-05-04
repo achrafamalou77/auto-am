@@ -1,7 +1,7 @@
 import { getVehicles } from '@/utils/supabaseClient';
 
 export default async function sitemap() {
-  const baseUrl = 'https://www.sarl2sauto.dz';
+  const baseUrl = 'https://www.amineauto.dz';
 
   let vehicles = [];
   try {

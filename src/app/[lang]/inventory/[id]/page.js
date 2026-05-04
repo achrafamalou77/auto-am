@@ -11,10 +11,10 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
   const vehicle = await getVehicleById(id);
 
-  if (!vehicle) return { title: 'Véhicule Introuvable | SARL 2S Auto' };
+  if (!vehicle) return { title: 'Véhicule Introuvable | Amine Auto' };
 
-  const title = `${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} ${vehicle.year} | SARL 2S Auto`;
-  const description = vehicle.description || `Achetez cette superbe ${vehicle.make} ${vehicle.model} ${vehicle.year} chez SARL 2S Auto. Prix: ${formatPrice(vehicle.price)}.`;
+  const title = `${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} ${vehicle.year} | Amine Auto`;
+  const description = vehicle.description || `Achetez cette superbe ${vehicle.make} ${vehicle.model} ${vehicle.year} chez Amine Auto. Prix: ${formatPrice(vehicle.price)}.`;
   const image = vehicle.images?.[0] || '/images/hero-poster.jpg';
 
   return {
@@ -76,8 +76,8 @@ export default async function ListingPage({ params }) {
     '@context': 'https://schema.org',
     '@type': 'Vehicle',
     name: title,
-    image: vehicle.images?.[0] || 'https://www.sarl2sauto.dz/images/hero-poster.jpg',
-    description: vehicle.description || `Achetez cette superbe ${title} chez SARL 2S Auto`,
+    image: vehicle.images?.[0] || 'https://www.amineauto.dz/images/hero-poster.jpg',
+    description: vehicle.description || `Achetez cette superbe ${title} chez Amine Auto`,
     brand: {
       '@type': 'Brand',
       name: vehicle.make,
@@ -92,7 +92,7 @@ export default async function ListingPage({ params }) {
       availability: vehicle.is_sold ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock',
       seller: {
         '@type': 'AutoDealer',
-        name: 'SARL 2S Auto',
+        name: 'Amine Auto',
       }
     }
   };
@@ -105,7 +105,7 @@ export default async function ListingPage({ params }) {
       />
       <div className="container">
 
-        {/* ====== Two-Column Layout (Vehica Style) ====== */}
+        {/* ====== Two-Column Layout ====== */}
         <div className={styles.layout}>
 
           {/* ---- Left Column: Gallery + Details (~65%) ---- */}
@@ -141,7 +141,7 @@ export default async function ListingPage({ params }) {
             <section className={styles.contentSection}>
               <h2 className={styles.sectionTitle}>Description</h2>
               <p className={styles.descriptionText}>
-                {vehicle.description || `Cette ${vehicle.make} ${vehicle.model} ${vehicle.year} est disponible chez 2s oto. Contactez-nous pour plus de détails ou pour planifier un essai routier.`}
+                {vehicle.description || `Cette ${vehicle.make} ${vehicle.model} ${vehicle.year} est disponible chez Amine Auto. Contactez-nous pour plus de détails ou pour planifier un essai routier.`}
               </p>
             </section>
 
@@ -186,14 +186,14 @@ export default async function ListingPage({ params }) {
               <h2 className={styles.sectionTitle}>Localisation</h2>
               <div className={styles.mapWrap}>
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.9758233273933!2d3.36106017572543!3d36.72314187226924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e5d3e77e62b67%3A0x890df236e8806741!2s2s%20oto!5e0!3m2!1sen!2sdz!4v1775731596873!5m2!1sen!2sdz"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d204634.3662103357!2d3.1269850157993884!3d36.736681328359836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e5d0073e20e89%3A0xd76a9825d87b2cdd!2sAmine%20auto%2035!5e0!3m2!1sen!2sdz!4v1777734505345!5m2!1sen!2sdz"
                   width="100%"
                   height="300"
                   style={{ border: 0, borderRadius: '12px' }}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Localisation du concessionnaire"
+                  title="Localisation de Amine Auto"
                 />
               </div>
             </section>

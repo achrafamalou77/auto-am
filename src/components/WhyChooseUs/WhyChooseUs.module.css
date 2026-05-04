@@ -1,50 +1,51 @@
-/* ===== Why Choose Us — Premium Dark Section ===== */
+/* ===== Why Choose Us — Bento Grid — Amine Auto ===== */
 
 .section {
-  padding: 100px 0;
-  background: linear-gradient(180deg, #0c0c0c 0%, #141414 100%);
+  padding: 80px 0;
+  background: var(--color-bg-alt);
   position: relative;
   overflow: hidden;
 }
 
-/* Subtle noise texture via radial gradient */
+/* Subtle grid pattern overlay */
 .section::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 20% 50%, rgba(230, 0, 0, 0.04) 0%, transparent 50%),
-              radial-gradient(circle at 80% 50%, rgba(37, 211, 102, 0.03) 0%, transparent 50%);
+  background-image: 
+    linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
   pointer-events: none;
 }
 
-/* ---- Header ---- */
 .header {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 56px;
   position: relative;
   z-index: 1;
 }
 
 .badge {
   display: inline-block;
-  padding: 6px 20px;
-  background: rgba(230, 0, 0, 0.1);
-  border: 1px solid rgba(230, 0, 0, 0.2);
-  border-radius: var(--radius-full);
+  padding: 6px 16px;
+  background: rgba(212, 175, 55, 0.08);
   color: var(--color-primary);
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  margin-bottom: 20px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  margin-bottom: 16px;
 }
 
 .title {
-  font-size: 2.8rem;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.5px;
-  line-height: 1.15;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 16px;
 }
 
 .titleAccent {
@@ -52,18 +53,19 @@
 }
 
 .subtitle {
+  color: var(--color-text-muted);
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.45);
-  max-width: 560px;
-  margin: 16px auto 0;
+  max-width: 600px;
+  margin: 0 auto;
   line-height: 1.7;
 }
 
-/* ---- Grid ---- */
+/* ---- Bento Grid ---- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 20px;
   position: relative;
   z-index: 1;
 }
@@ -71,214 +73,123 @@
 /* ---- Card ---- */
 .card {
   position: relative;
-  text-align: center;
-  padding: 48px 32px 40px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 36px 32px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: hidden;
-  cursor: default;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
-  transform: translateY(-12px) scale(1.02);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-6px);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-card-hover);
 }
 
-/* ---- Animated Glow Border ---- */
+/* First card spans 2 cols — Bento style */
+.card:first-child {
+  grid-column: span 2;
+}
+
+/* Glow border overlay */
 .glowBorder {
   position: absolute;
-  inset: -1px;
-  border-radius: 21px;
-  padding: 1px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    transparent 25%,
-    var(--color-primary) 35%,
-    transparent 45%,
-    transparent 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  inset: 0;
+  border-radius: var(--radius-lg);
   opacity: 0;
   transition: opacity 0.4s ease;
   pointer-events: none;
-  animation: borderRotate 4s linear infinite paused;
 }
 
 .card:hover .glowBorder {
   opacity: 1;
-  animation-play-state: running;
 }
 
-@keyframes borderRotate {
-  to {
-    background: conic-gradient(
-      from 360deg,
-      transparent 0%,
-      transparent 25%,
-      var(--color-primary) 35%,
-      transparent 45%,
-      transparent 100%
-    );
-  }
+/* ---- Accent Colors ---- */
+.orange .glowBorder {
+  box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.2);
 }
 
-/* Green variant glow */
-.green:hover .glowBorder {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    transparent 25%,
-    #25d366 35%,
-    transparent 45%,
-    transparent 100%
-  );
+.green .glowBorder {
+  box-shadow: inset 0 0 0 1px rgba(0, 255, 136, 0.2);
 }
 
-/* Gold variant glow */
-.gold:hover .glowBorder {
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    transparent 25%,
-    #f59e0b 35%,
-    transparent 45%,
-    transparent 100%
-  );
+.gold .glowBorder {
+  box-shadow: inset 0 0 0 1px rgba(255, 193, 7, 0.2);
 }
 
-/* ---- Card Hover shadows per accent ---- */
-.orange:hover {
-  box-shadow:
-    0 20px 60px rgba(230, 0, 0, 0.12),
-    0 0 80px rgba(230, 0, 0, 0.06);
-}
-
-.green:hover {
-  box-shadow:
-    0 20px 60px rgba(37, 211, 102, 0.1),
-    0 0 80px rgba(37, 211, 102, 0.05);
-}
-
-.gold:hover {
-  box-shadow:
-    0 20px 60px rgba(245, 158, 11, 0.1),
-    0 0 80px rgba(245, 158, 11, 0.05);
-}
-
-/* ---- Step Number ---- */
+/* Step number */
 .step {
-  position: absolute;
-  top: 20px;
-  right: 24px;
-  font-size: 0.72rem;
+  font-family: var(--font-display);
+  font-size: 3.5rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.12);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 20px;
+  display: block;
 }
 
-/* ---- Icon ---- */
+.orange .step { color: rgba(212, 175, 55, 0.15); }
+.green .step { color: rgba(0, 255, 136, 0.15); }
+.gold .step { color: rgba(255, 193, 7, 0.15); }
+
+/* Icon */
 .iconWrap {
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 24px;
-  position: relative;
+  margin-bottom: 20px;
 }
 
 .iconInner {
-  width: 72px;
-  height: 72px;
-  border-radius: 18px;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Per-accent icon styling */
 .orange .iconInner {
-  background: rgba(230, 0, 0, 0.1);
+  background: rgba(212, 175, 55, 0.08);
   color: var(--color-primary);
-  border: 1px solid rgba(230, 0, 0, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.15);
 }
 
 .green .iconInner {
-  background: rgba(37, 211, 102, 0.08);
-  color: #25d366;
-  border: 1px solid rgba(37, 211, 102, 0.12);
+  background: rgba(0, 255, 136, 0.08);
+  color: var(--color-disponible);
+  border: 1px solid rgba(0, 255, 136, 0.15);
 }
 
 .gold .iconInner {
-  background: rgba(245, 158, 11, 0.08);
-  color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.12);
+  background: rgba(255, 193, 7, 0.08);
+  color: #ffc107;
+  border: 1px solid rgba(255, 193, 7, 0.15);
 }
 
-/* Icon hover: pulse + lift */
-.card:hover .iconInner {
-  transform: translateY(-4px) scale(1.08);
-}
-
-.orange:hover .iconInner {
-  box-shadow: 0 8px 32px rgba(230, 0, 0, 0.2);
-}
-
-.green:hover .iconInner {
-  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.18);
-}
-
-.gold:hover .iconInner {
-  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.18);
-}
-
-/* ---- Text ---- */
+/* Content */
 .cardTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 14px;
-  letter-spacing: -0.2px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 12px;
 }
 
 .cardDesc {
-  font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.45);
-  line-height: 1.75;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
 }
 
-/* ====== Responsive ====== */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
   .grid {
     grid-template-columns: 1fr;
-    max-width: 480px;
-    margin: 0 auto;
-    gap: 24px;
   }
-
-  .title {
-    font-size: 2.2rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .section {
-    padding: 72px 0;
-  }
-
-  .title {
-    font-size: 1.8rem;
-  }
-
-  .card {
-    padding: 36px 24px 32px;
+  .card:first-child {
+    grid-column: span 1;
   }
 }

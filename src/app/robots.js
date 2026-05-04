@@ -5,6 +5,6 @@ export default function robots() {
       allow: '/',
       disallow: ['/admin/', '/api/'], // Protect admin panel and api routes
     },
-    sitemap: 'https://www.sarl2sauto.dz/sitemap.xml',
+    sitemap: 'https://www.amineauto.dz/sitemap.xml',
   }
 }

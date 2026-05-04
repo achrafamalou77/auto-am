@@ -1,18 +1,19 @@
-/* ===== Vehica-Style Featured Grid ===== */
+/* ===== Featured Grid — Amine Auto ===== */
 
 .section {
   padding: 100px 0 100px;
   background: linear-gradient(
     to bottom,
-    var(--color-dark, #111) 0%,
-    var(--color-bg, #f4f5f7) 12%,
-    var(--color-bg, #f4f5f7) 100%
+    var(--color-dark) 0%,
+    var(--color-bg) 15%,
+    var(--color-bg) 100%
   );
 }
 
 .sectionTitle {
+  font-family: var(--font-display);
   font-size: 2.4rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--color-text);
   margin-bottom: 48px;
   line-height: 1.2;

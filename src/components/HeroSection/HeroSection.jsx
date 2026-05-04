@@ -11,7 +11,7 @@ export default function HeroSection() {
       <video
         className={styles.video}
         src="/videos/hero-video.mp4"
-        poster="/images/hero-poster.jpg"
+        poster="/images/hero-poster.jpeg"
         autoPlay
         loop
         muted

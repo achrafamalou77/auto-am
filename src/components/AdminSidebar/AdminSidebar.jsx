@@ -77,15 +77,15 @@ export default function AdminSidebar() {
         <div className={styles.brand}>
           <Link href="/" onClick={() => setIsOpen(false)}>
             <Image
-              src="/images/logo.webp"
-              alt="2s oto Logo"
-              width={90}
-              height={36}
+              src="/images/logo.png"
+              alt="Amine Auto Logo"
+              width={140}
+              height={45}
               priority
               className={styles.logoImage}
             />
           </Link>
-          <div className={styles.badge}>Admin</div>
+          <div className={styles.badge} style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)', background: 'rgba(212, 175, 55, 0.1)', border: '1px solid' }}>Admin</div>
         </div>
 
         <nav className={styles.nav}>

@@ -35,7 +35,7 @@ export default function StickyContactBar() {
             Des questions ? Contactez-nous directement
           </span>
           <a 
-            href="https://wa.me/213550599437?text=Bonjour%2C%20je%20viens%20de%20votre%20site%202s%20oto." 
+            href="https://wa.me/213560003106?text=Bonjour%2C%20je%20viens%20du%20site%20Amine%20Auto." 
             target="_blank" 
             rel="noopener noreferrer"
             className={styles.waBtn}
@@ -51,7 +51,7 @@ export default function StickyContactBar() {
       {/* Collapsed mini WhatsApp icon */}
       {collapsed && (
         <a 
-          href="https://wa.me/213550599437?text=Bonjour%2C%20je%20viens%20de%20votre%20site%202s%20oto." 
+          href="https://wa.me/213560003106?text=Bonjour%2C%20je%20viens%20du%20site%20Amine%20Auto." 
           target="_blank" 
           rel="noopener noreferrer"
           className={styles.miniWa}

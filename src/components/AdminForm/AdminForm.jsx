@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { addVehicle, updateVehicle, uploadVehicleImage } from '@/utils/supabaseClient';
 import { revalidateVehicles } from '@/app/actions';
 import MediaDropzone from '../MediaDropzone/MediaDropzone';
+import imageCompression from 'browser-image-compression';
 import styles from './AdminForm.module.css';
 
 export default function AdminForm({ initialData = null }) {
@@ -71,7 +72,13 @@ export default function AdminForm({ initialData = null }) {
     try {
       const imageUrls = [...existingImages];
       for (const file of imagesToUpload) {
-        const url = await uploadVehicleImage(file);
+        const options = {
+          maxSizeMB: 0.5,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        };
+        const compressedFile = await imageCompression(file, options);
+        const url = await uploadVehicleImage(compressedFile);
         imageUrls.push(url);
       }
 

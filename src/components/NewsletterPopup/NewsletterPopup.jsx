@@ -63,7 +63,7 @@ export default function NewsletterPopup() {
             <div className={styles.badge}>Exclusif</div>
             <h2 className={styles.headline}>
               Rejoignez le Club{' '}
-              <span className={styles.brand}>2S Oto</span>
+              <span className={styles.brand}>Amine Auto</span>
             </h2>
             <p className={styles.description}>
               Recevez nos arrivages exclusifs, offres spéciales et invitations VIP directement dans votre boîte mail.

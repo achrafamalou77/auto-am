@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { supabase } from '@/utils/supabaseClient';
 import AdminSidebar from '@/components/AdminSidebar/AdminSidebar';
+import '../globals.css';
 import './admin-globals.css';
 
 export default function AdminLayout({ children }) {
@@ -28,27 +29,43 @@ export default function AdminLayout({ children }) {
   }, [isLoginPage, router]);
 
   if (loading) {
-    return <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg)' }}>Chargement sécurisé...</div>;
+    return (
+      <html lang="fr" suppressHydrationWarning>
+        <body suppressHydrationWarning style={{ background: 'var(--color-bg)', color: 'var(--color-text)' }}>
+          <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg)' }}>Chargement sécurisé...</div>
+        </body>
+      </html>
+    );
   }
 
   if (isLoginPage) {
-    return <>{children}</>;
+    return (
+      <html lang="fr" suppressHydrationWarning>
+        <body suppressHydrationWarning style={{ background: 'var(--color-bg)', color: 'var(--color-text)' }}>
+          {children}
+        </body>
+      </html>
+    );
   }
 
   return (
-    <div className="admin-layout">
-      <AdminSidebar />
-      <div className="admin-main">
-        <header className="admin-header">
-          <div className="header-greeting">
-            <h2>Bonjour, Administrateur</h2>
-            <p>Gérez votre inventaire et vos leads.</p>
+    <html lang="fr" suppressHydrationWarning>
+      <body suppressHydrationWarning style={{ background: 'var(--color-bg)', color: 'var(--color-text)' }}>
+        <div className="admin-layout">
+          <AdminSidebar />
+          <div className="admin-main">
+            <header className="admin-header">
+              <div className="header-greeting">
+                <h2>Bonjour, Administrateur</h2>
+                <p>Gérez votre inventaire et vos leads.</p>
+              </div>
+            </header>
+            <main className="admin-content">
+              {children}
+            </main>
           </div>
-        </header>
-        <main className="admin-content">
-          {children}
-        </main>
-      </div>
-    </div>
+        </div>
+      </body>
+    </html>
   );
 }

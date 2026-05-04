@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import fr from '@/dictionaries/fr.json';
+import ar from '@/dictionaries/ar.json';
 import styles from './Footer.module.css';
 
-export default function Footer() {
+export default function Footer({ lang = 'fr' }) {
+  const dict = lang === 'ar' ? ar : fr;
+
   return (
     <footer className={styles.footer} id="site-footer">
       {/* Top Accent Line */}
@@ -12,23 +16,16 @@ export default function Footer() {
         {/* ---- Brand Column ---- */}
         <div className={styles.brand}>
           <div className={styles.brandLogo}>
-            <Image
-              src="/images/logo.webp"
-              alt="2s oto Logo"
-              width={130}
-              height={52}
-              className={styles.logoImage}
-            />
+            <Image src="/images/logo.png" alt="Amine Auto Logo" width={160} height={60} style={{ objectFit: 'contain' }} />
           </div>
           <p className={styles.brandDesc}>
-            Votre destination premium pour l&apos;achat de véhicules neufs en
-            Algérie. Qualité, confiance et excellence depuis 2019.
+            {dict.footer.about}
           </p>
 
           {/* Social Icons */}
           <div className={styles.socials}>
             <a
-              href="https://www.facebook.com/profile.php?id=61582639421928"
+              href="https://www.facebook.com/profile.php?id=61579605512823"
               className={styles.socialLink}
               aria-label="Facebook"
               target="_blank"
@@ -39,7 +36,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.instagram.com/sarl_2s_auto/"
+              href="https://www.instagram.com/amineauto35/"
               className={styles.socialLink}
               aria-label="Instagram"
               target="_blank"
@@ -50,7 +47,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.tiktok.com/@sarl_2s_auto"
+              href="https://www.tiktok.com/@amine.auto.35"
               className={styles.socialLink}
               aria-label="TikTok"
               target="_blank"
@@ -65,17 +62,17 @@ export default function Footer() {
 
         {/* ---- Quick Links ---- */}
         <div className={styles.column}>
-          <h4 className={styles.colTitle}>Navigation</h4>
+          <h4 className={styles.colTitle}>{dict.footer.navTitle}</h4>
           <ul className={styles.links}>
-            <li><Link href="/">Accueil</Link></li>
-            <li><Link href="/inventaire">Véhicules</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
+            <li><Link href={`/${lang}`}>{dict.footer.home}</Link></li>
+            <li><Link href={`/${lang}/inventaire`}>{dict.footer.vehicles}</Link></li>
+            <li><Link href={`/${lang}/contact`}>{dict.footer.contact}</Link></li>
           </ul>
         </div>
 
         {/* ---- Contact Info ---- */}
         <div className={styles.column}>
-          <h4 className={styles.colTitle}>Contact</h4>
+          <h4 className={styles.colTitle}>{dict.footer.contactTitle}</h4>
           <ul className={styles.contactList}>
             <li className={styles.contactItem}>
               <div className={styles.contactIcon}>
@@ -83,7 +80,7 @@ export default function Footer() {
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
                 </svg>
               </div>
-              <span>0550 59 94 37</span>
+              <span dir="ltr" className="inline-block" style={{ unicodeBidi: 'plaintext' }}>0560 00 31 02</span>
             </li>
             <li className={styles.contactItem}>
               <div className={styles.contactIcon}>
@@ -91,7 +88,7 @@ export default function Footer() {
                   <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
                 </svg>
               </div>
-              <span>0784 09 57 23</span>
+              <span dir="ltr" className="inline-block" style={{ unicodeBidi: 'plaintext' }}>0560 00 31 06</span>
             </li>
             <li className={styles.contactItem}>
               <div className={styles.contactIcon}>
@@ -100,16 +97,7 @@ export default function Footer() {
                   <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
-              <span>contact@sarl2sauto.dz</span>
-            </li>
-            <li className={styles.contactItem}>
-              <div className={styles.contactIcon}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-              </div>
-              <span>sarl2sauto@gmail.com</span>
+              <span>contact@amineauto.dz</span>
             </li>
             <li className={styles.contactItem}>
               <div className={styles.contactIcon}>
@@ -118,31 +106,24 @@ export default function Footer() {
                   <circle cx="12" cy="10" r="3" />
                 </svg>
               </div>
-              <a
-                href="https://maps.app.goo.gl/PjNrwAVKrHiwB5qh6"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.addressLink}
-              >
-                Rue Nationale N° 5 Réghaïa<br />16035 Algiers, Algeria
-              </a>
+              <span>{dict.footer.address}</span>
             </li>
           </ul>
         </div>
 
         {/* ---- Localisation ---- */}
         <div className={styles.column}>
-          <h4 className={styles.colTitle}>Localisation</h4>
-          <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+          <h4 className={styles.colTitle}>{dict.footer.locTitle}</h4>
+          <div className={styles.mapWrap}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.9758233273933!2d3.36106017572543!3d36.72314187226924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e5d3e77e62b67%3A0x890df236e8806741!2s2s%20oto!5e0!3m2!1sen!2sdz!4v1775731596873!5m2!1sen!2sdz"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d204634.3662103357!2d3.1269850157993884!3d36.736681328359836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e5d0073e20e89%3A0xd76a9825d87b2cdd!2sAmine%20auto%2035!5e0!3m2!1sen!2sdz!4v1777734505345!5m2!1sen!2sdz"
               width="100%"
               height="180"
               style={{ border: 0, display: 'block' }}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Localisation Google Maps"
+              title="Localisation Amine Auto"
             />
           </div>
         </div>
@@ -152,14 +133,9 @@ export default function Footer() {
       <div className={styles.bottom}>
         <div className="container">
           <p className={styles.copy}>
-            © {new Date().getFullYear()} SARL 2S Auto. Tous droits réservés.
+            © {new Date().getFullYear()} {dict.footer.copyright}
           </p>
         </div>
-      </div>
-
-      {/* Meta Domain Verification Legal Footer */}
-      <div className="w-full text-center p-6 text-xs text-gray-400 mt-auto" dir="auto">
-        © 2026 SARL 2S OTO (شركة ذات المسؤولية المحدودة دو أس أوطو). حي محمد بوضياف محل رقم 02 أولاد هداج.
       </div>
     </footer>
   );

@@ -19,9 +19,9 @@ export default function VehicleCard({ vehicle, featured = false }) {
       <div className={styles.imageWrap}>
         <Image
           src={vehicle.images?.[0] || '/images/cars/placeholder.jpg'}
-          alt={`${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} ${vehicle.year} chez SARL 2S Auto Alger`.replace(/\s+/g, ' ').trim()}
+          alt={`${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} ${vehicle.year} chez Amine Auto`.replace(/\s+/g, ' ').trim()}
           fill
-          sizes={featured ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 100vw, 33vw'}
+          sizes={featured ? '(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw' : '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw'}
           style={{ objectFit: 'cover' }}
           className={`${styles.image} ${vehicle.is_sold ? styles.soldImage : ''}`}
         />
@@ -34,6 +34,7 @@ export default function VehicleCard({ vehicle, featured = false }) {
 
         {/* Availability Badge */}
         <div className={`${styles.availabilityBadge} ${badgeClass}`}>
+          <span className={styles.badgeDot} />
           {availability}
         </div>
 
